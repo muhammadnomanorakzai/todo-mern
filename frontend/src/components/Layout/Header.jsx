@@ -1,4 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 import { useAuth } from "../../context/AuthContext";
 
 const Header = () => {
@@ -11,15 +12,25 @@ const Header = () => {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm mb-4">
+    <motion.nav
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ type: "spring", stiffness: 100 }}
+      className="navbar navbar-expand-lg navbar-dark"
+      style={{
+        background: "linear-gradient(135deg, #0d6efd)",
+        boxShadow: "0 4px 20px rgba(102, 126, 234, 0.3)",
+      }}>
       <div className="container">
-        <Link className="navbar-brand fw-bold" to="/">
-          <i className="bi bi-people-fill me-2"></i>
-          User Dashboard
-        </Link>
+        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+          <Link className="navbar-brand fw-bold" to="/">
+            <i className="bi bi-grid-3x3-gap-fill me-2"></i>
+            TaskFlow
+          </Link>
+        </motion.div>
 
         <button
-          className="navbar-toggler"
+          className="navbar-toggler border-0"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarNav">
@@ -27,42 +38,59 @@ const Header = () => {
         </button>
 
         <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav ms-auto">
+          <ul className="navbar-nav ms-auto align-items-center">
             {user ? (
               <>
-                <li className="nav-item">
-                  <span className="nav-link">
+                <motion.li
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="nav-item me-3">
+                  <span className="nav-link text-white opacity-75">
                     <i className="bi bi-person-circle me-1"></i>
                     {user.email}
                   </span>
-                </li>
-                <li className="nav-item">
-                  <button
-                    className="btn btn-outline-light btn-sm ms-2"
+                </motion.li>
+                <motion.li
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="nav-item">
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="btn btn-outline-light rounded-pill px-4"
                     onClick={handleLogout}>
-                    <i className="bi bi-box-arrow-right me-1"></i>
+                    <i className="bi bi-box-arrow-right me-2"></i>
                     Logout
-                  </button>
-                </li>
+                  </motion.button>
+                </motion.li>
               </>
             ) : (
               <>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/login">
+                <motion.li
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="nav-item me-2">
+                  <Link className="nav-link text-white" to="/login">
                     Login
                   </Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/register">
+                </motion.li>
+                <motion.li
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="nav-item">
+                  <Link
+                    className="btn btn-light rounded-pill px-4"
+                    to="/register"
+                    style={{ color: "#667eea" }}>
                     Register
                   </Link>
-                </li>
+                </motion.li>
               </>
             )}
           </ul>
         </div>
       </div>
-    </nav>
+    </motion.nav>
   );
 };
 

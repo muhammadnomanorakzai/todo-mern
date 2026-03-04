@@ -1,0 +1,158 @@
+.dashboard-wrapper {
+  background: linear-gradient(135deg, #f5f7fa 0%, #f8f9fa 100%);
+}
+
+.hand-wave {
+  display: inline-block;
+  animation: wave 2.5s infinite;
+  transform-origin: 70% 70%;
+}
+
+@keyframes wave {
+  0% {
+    transform: rotate(0deg);
+  }
+  10% {
+    transform: rotate(14deg);
+  }
+  20% {
+    transform: rotate(-8deg);
+  }
+  30% {
+    transform: rotate(14deg);
+  }
+  40% {
+    transform: rotate(-4deg);
+  }
+  50% {
+    transform: rotate(10deg);
+  }
+  60% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.dashboard-tabs .nav-pills {
+  background: white;
+  padding: 6px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.dashboard-tabs .nav-link {
+  color: #6c757d;
+  font-weight: 600;
+  transition: all 0.3s;
+  border-radius: 12px;
+}
+
+.dashboard-tabs .nav-link.active {
+  background: linear-gradient(135deg, #0d6efd);
+  color: white;
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+}
+
+.dashboard-tabs .nav-link:not(.active):hover {
+  background: #f8f9fa;
+  transform: translateY(-2px);
+}
+
+.avatar-circle {
+  width: 48px;
+  height: 48px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 1.2rem;
+  transition: all 0.3s;
+}
+
+.bg-soft-primary {
+  background: rgba(102, 126, 234, 0.1);
+  color: #667eea;
+}
+
+.user-row {
+  transition: all 0.3s;
+  border-radius: 16px;
+}
+
+.user-row td {
+  padding: 1.2rem 1rem;
+}
+
+.empty-state-icon {
+  width: 160px;
+  height: 160px;
+  background: #f8f9fa;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed #dee2e6;
+}
+
+.skeleton-loader {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .dashboard-tabs .nav-pills {
+    max-width: 100%;
+  }
+
+  .avatar-circle {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+
+  .user-row td {
+    padding: 1rem 0.5rem;
+  }
+}
+
+/* Custom table styles */
+.table {
+  border-collapse: separate;
+  border-spacing: 0 8px;
+}
+
+.table thead th {
+  border: none;
+  font-weight: 600;
+  color: #fff;
+  background-color: #434a52ff;
+}
+
+.table tbody tr {
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+  transition: all 0.3s;
+}
+
+.table tbody tr:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.table tbody td {
+  border: none;
+  vertical-align: middle;
+}

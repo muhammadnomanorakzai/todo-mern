@@ -1,5 +1,6 @@
 import { useState } from "react";
 import DatePicker from "react-datepicker";
+import { motion, AnimatePresence } from "framer-motion";
 import "react-datepicker/dist/react-datepicker.css";
 
 const TodoForm = ({ onSubmit }) => {
@@ -44,71 +45,77 @@ const TodoForm = ({ onSubmit }) => {
         priority: "medium",
         dueDate: null,
       });
-    } else {
-      alert(result.message);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="todo-form">
-      <div className="mb-3">
-        <label className="form-label fw-semibold">
+    <motion.form
+      initial={{ opacity: 0, x: -20 }}
+      animate={{ opacity: 1, x: 0 }}
+      onSubmit={handleSubmit}
+      className="todo-form">
+      <div className="mb-4">
+        <label className="form-label fw-semibold text-muted small mb-2">
           <i className="bi bi-card-heading me-1"></i>
-          Task Title *
+          Task Title
         </label>
         <input
           type="text"
-          className="form-control form-control-lg"
+          className="form-control form-control-lg border-0 bg-light"
+          style={{ borderRadius: "16px", padding: "1rem" }}
           name="title"
           value={formData.title}
           onChange={handleChange}
-          placeholder="What needs to be done?"
+          placeholder="e.g., Complete project report"
           required
         />
       </div>
 
-      <div className="mb-3">
-        <label className="form-label fw-semibold">
+      <div className="mb-4">
+        <label className="form-label fw-semibold text-muted small mb-2">
           <i className="bi bi-text-paragraph me-1"></i>
           Description
         </label>
         <textarea
-          className="form-control"
+          className="form-control border-0 bg-light"
+          style={{ borderRadius: "16px", padding: "1rem" }}
           name="description"
           value={formData.description}
           onChange={handleChange}
-          placeholder="Add more details..."
-          rows="3"
+          placeholder="Add more details about this task..."
+          rows="4"
         />
       </div>
 
-      <div className="row mb-3">
+      <div className="row g-3 mb-4">
         <div className="col-md-6">
-          <label className="form-label fw-semibold">
+          <label className="form-label fw-semibold text-muted small mb-2">
             <i className="bi bi-flag me-1"></i>
             Priority
           </label>
           <select
-            className="form-select"
+            className="form-select form-select-lg border-0 bg-light"
+            style={{ borderRadius: "16px", padding: "0.4rem" }}
             name="priority"
             value={formData.priority}
             onChange={handleChange}>
-            <option value="low">Low</option>
-            <option value="medium">Medium</option>
-            <option value="high">High</option>
+            <option value="low">🟢 Low</option>
+            <option value="medium">🟡 Medium</option>
+            <option value="high">🔴 High</option>
           </select>
         </div>
 
         <div className="col-md-6">
-          <label className="form-label fw-semibold">
+          <label className="form-label fw-semibold text-muted small mb-2">
             <i className="bi bi-calendar me-1"></i>
             Due Date
           </label>
           <DatePicker
             selected={formData.dueDate}
             onChange={handleDateChange}
-            className="form-control"
-            placeholderText="Select a date"
+            className="form-control form-control-lg border-0 bg-light"
+            style={{ borderRadius: "16px", padding: "1rem" }}
+            placeholderText="Select due date"
             dateFormat="MMMM d, yyyy"
             minDate={new Date()}
             isClearable
@@ -116,50 +123,41 @@ const TodoForm = ({ onSubmit }) => {
         </div>
       </div>
 
-      <div className="d-grid">
-        <button
-          type="submit"
-          className="btn btn-primary btn-lg"
-          disabled={loading || !formData.title.trim()}>
+      <motion.button
+        type="submit"
+        className="btn btn-primary btn-lg w-100"
+        style={{
+          borderRadius: "16px",
+          padding: "1rem",
+          background: "linear-gradient(135deg, #0d6efd)",
+          border: "none",
+        }}
+        whileHover={{ scale: 1.02, y: -2 }}
+        whileTap={{ scale: 0.98 }}
+        disabled={loading || !formData.title.trim()}>
+        <AnimatePresence mode="wait">
           {loading ? (
-            <>
+            <motion.span
+              key="loading"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}>
               <span className="spinner-border spinner-border-sm me-2"></span>
               Creating...
-            </>
+            </motion.span>
           ) : (
-            <>
+            <motion.span
+              key="submit"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}>
               <i className="bi bi-plus-circle me-2"></i>
-              Add Task
-            </>
+              Create Task
+            </motion.span>
           )}
-        </button>
-      </div>
-
-      <style>{`
-        .todo-form input, 
-        .todo-form textarea, 
-        .todo-form select {
-          border-radius: 10px;
-          border: 1px solid #e0e0e0;
-          transition: all 0.3s;
-        }
-        
-        .todo-form input:focus, 
-        .todo-form textarea:focus, 
-        .todo-form select:focus {
-          border-color: #667eea;
-          box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
-        }
-        
-        .react-datepicker-wrapper {
-          width: 100%;
-        }
-        
-        .react-datepicker__input-container input {
-          width: 100%;
-        }
-      `}</style>
-    </form>
+        </AnimatePresence>
+      </motion.button>
+    </motion.form>
   );
 };
 
